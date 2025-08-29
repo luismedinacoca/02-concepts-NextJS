@@ -201,44 +201,111 @@ Example matches and params:
 
 <img src="/img/optional-catch-all-route.png">
 
+### 7. Navigation Hooks
+Next.js provides powerful navigation hooks for client-side navigation and routing. Here are the three main navigation hooks:
+
+#### useRouter()
+The `useRouter()` hook provides programmatic navigation and routing methods:
+
+```typescript
+"use client";
+import { useRouter } from 'next/navigation';
+
+export default function MyComponent() {
+  const router = useRouter();
+  
+  // Navigation methods
+  router.push('/about');      // Navigate to a new route
+  router.replace('/login');   // Replace current route (no history entry)
+  router.refresh();          // Refresh the current route
+  router.back();             // Go back one page
+  router.forward();          // Go forward one page
+}
+```
+
+#### usePathname()
+The `usePathname()` hook returns the current URL's pathname:
+
+```typescript
+"use client";
+import { usePathname } from 'next/navigation';
+
+export default function MyComponent() {
+  const pathname = usePathname();
+  // Example: if URL is /shop/products/123
+  console.log(pathname); // Output: /shop/products/123
+}
+```
+
+#### useSearchParams()
+The `useSearchParams()` hook provides access to the URL's search parameters:
+
+```typescript
+"use client";
+import { useSearchParams } from 'next/navigation';
+
+export default function MyComponent() {
+  const searchParams = useSearchParams();
+  
+  // Example 1: Using get() - single value
+  // URL: /profile?age=25
+  const age = searchParams.get('age'); // Returns "25"
+  
+  // Example 2: Using getAll() - multiple values
+  // URL: /profile?name=betty&name=sofia&name=sandra
+  const names = searchParams.getAll('name'); // Returns ["betty", "sofia", "sandra"]
+}
+```
+
+#### Comparison of Navigation Hooks
+
+| Feature | useRouter() | usePathname() | useSearchParams() |
+|---------|------------|---------------|-------------------|
+| Purpose | Programmatic navigation & routing control | Get current pathname | Access URL query parameters |
+| Client Component Required | Yes | Yes | Yes |
+| Main Methods | push(), replace(), refresh(), back(), forward() | N/A (returns string) | get(), getAll(), has(), toString() |
+| Use Cases | Navigation actions, route manipulation | Active link styling, conditional rendering based on route | Form handling, filtering, pagination |
+| Return Type | Router object | string | URLSearchParams object |
+| Example URL: /shop/products?category=books&sort=asc | Full routing control | Returns "/shop/products" | Access to "category" and "sort" params |
+
 ## Suggested Next Steps
 
-### 7. Data Handling
+### 1. Data Handling
 - Implement data loading with `loading.tsx`
 - Use Server Components vs Client Components
 - Implement error handling with `error.tsx`
 
-### 8. Authentication & Authorization
+### 2. Authentication & Authorization
 - Set up an authentication system
 - Protect private routes
 - Handle user roles
 
-### 9. Optimization & Performance
-- Implement image loading with `next/image`
-- Optimize fonts with `next/font`
-- Implement progressive loading
-
-### 10. API Routes
+### 3. API Routes
 - Create API endpoints
 - Handle HTTP methods
 - Implement middleware
 
-### 11. Advanced Components
+### 4. Advanced Components
 - Create reusable components
 - Implement forms with validation
 - Create modals and popups
 
-### 12. Global State
+### 5. Optimization & Performance
+- Implement image loading with `next/image`
+- Optimize fonts with `next/font`
+- Implement progressive loading
+
+### 6. Global State
 - Implement state management (Zustand/Redux)
 - Handle server state
 - Implement caching
 
-### 13. Testing
+### 7. Testing
 - Set up Jest and React Testing Library
 - Write unit tests
 - Implement integration tests
 
-### 14. Deployment
+### 8. Deployment
 - Set up CI/CD
 - Optimize for production
 - Implement monitoring
