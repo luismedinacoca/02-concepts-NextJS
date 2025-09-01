@@ -310,6 +310,87 @@ Each method serves a specific purpose:
 | Return Type | Router object | string | URLSearchParams object |
 | Example URL: /shop/products?category=books&sort=asc | Full routing control | Returns "/shop/products" | Access to "category" and "sort" params |
 
+## Not Found & Loading Example Plan
+
+### Next.js App Directory Context
+
+- Next.js introduced the app directory to enable advanced routing, layouts, and server components.
+- Files like `not-found.tsx` and `loading.tsx` are conventions that enhance UX and error handling.
+- Routing is file-system based: folders and files in `src/app` map directly to URLs.
+- Special files:
+  - `layout.tsx`: Defines persistent layouts for nested routes.
+  - `page.tsx`: Defines the main content for a route.
+  - `loading.tsx`: Shows a loading UI during slow data/page loads.
+  - `not-found.tsx`: Handles 404 errors for missing routes.
+
+### 1. `not-found.tsx`
+
+#### How It Works
+- Next.js automatically renders this file for unmatched routes.
+- Can be placed at any level in the app directory for scoped 404 handling (e.g., per section).
+- Supports both static and dynamic content.
+- Can use React components, images, links, and custom styles.
+
+#### Goals
+- Improve navigation and error recovery.
+- Maintain brand consistency even on error pages.
+- Optionally log or track 404 events for analytics.
+
+#### Risks
+- Over-customization may distract from the main site.
+- Missing or misconfigured `not-found.tsx` can result in default, unstyled errors.
+- If placed incorrectly, may not catch all 404s as intended.
+
+---
+
+### 2. Loading Example Files
+
+#### Files:
+- `./src/app/loading-example/page.tsx`
+- `./src/app/loading-example/loading.tsx`
+
+#### How They Work
+- `loading.tsx` is rendered automatically when a route or its data is slow to load.
+- Can be used with server components, client components, or data fetching (e.g., `fetch`, `getServerSideProps`).
+- Supports custom spinners, skeleton screens, or messages.
+- Can be scoped to specific routes for granular loading states.
+
+#### Goals
+- Reduce perceived wait times and improve engagement.
+- Communicate progress and prevent confusion.
+- Allow for branded or animated loading experiences.
+
+#### Risks
+- Overly complex loading UIs may impact performance.
+- Inconsistent loading experiences across routes can confuse users.
+- If not implemented, users may see blank screens during slow loads.
+
+#### Additional Details
+- Works with Next.js streaming and suspense features.
+- Can be combined with error boundaries for robust UX.
+- Loading UI is only shown if the page or data is slow to resolve.
+- Best practice: keep loading UI simple and informative.
+
+---
+
+### Next.js Features Related to These Files
+
+- **File-based Routing:** Each file/folder in `src/app` is a route.
+- **Server Components:** Can fetch data on the server, reducing client-side JS.
+- **Streaming:** Next.js can stream parts of the UI as they become ready, showing loading states.
+- **Error Boundaries:** Can catch and display errors gracefully, often paired with `not-found.tsx`.
+- **Custom 404 and Loading:** Improves SEO, accessibility, and user retention.
+
+---
+
+### Summary
+- `not-found.tsx` and `loading.tsx` are essential for robust, user-friendly Next.js apps.
+- They leverage Next.js conventions for error and loading handling.
+- Proper use improves navigation, branding, and perceived performance.
+- Risks are mostly related to poor UX, missing files, or misconfiguration.
+- Next.js's app directory and conventions make these features easy to implement and customize.
+
+
 ## Suggested Next Steps
 
 ### 1. Data Handling
