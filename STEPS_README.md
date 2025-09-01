@@ -238,7 +238,7 @@ export default function MyComponent() {
 ```
 
 #### useSearchParams()
-The `useSearchParams()` hook provides access to the URL's search parameters:
+The `useSearchParams()` hook provides access to the URL's search parameters and offers various methods to interact with them:
 
 ```typescript
 "use client";
@@ -247,15 +247,57 @@ import { useSearchParams } from 'next/navigation';
 export default function MyComponent() {
   const searchParams = useSearchParams();
   
-  // Example 1: Using get() - single value
-  // URL: /profile?age=25
+  // Example URL: /profile?name=betty&name=sofia&age=25&city=london&active=true
+  
+  // 1. get() - Get a single value
   const age = searchParams.get('age'); // Returns "25"
   
-  // Example 2: Using getAll() - multiple values
-  // URL: /profile?name=betty&name=sofia&name=sandra
-  const names = searchParams.getAll('name'); // Returns ["betty", "sofia", "sandra"]
+  // 2. getAll() - Get all values for a parameter
+  const names = searchParams.getAll('name'); // Returns ["betty", "sofia"]
+  
+  // 3. keys() - Get all unique parameter keys
+  const keys = Array.from(searchParams.keys()); // Returns ["name", "age", "city", "active"]
+  
+  // 4. values() - Get all parameter values
+  const values = Array.from(searchParams.values()); // Returns ["betty", "sofia", "25", "london", "true"]
+  
+  // 5. entries() - Get all key-value pairs
+  const entries = Array.from(searchParams.entries());
+  // Returns [["name", "betty"], ["name", "sofia"], ["age", "25"], ["city", "london"], ["active", "true"]]
+  
+  // 6. forEach() - Iterate over all key-value pairs
+  searchParams.forEach((value, key) => {
+    console.log(`${key}: ${value}`);
+  });
+  // Logs:
+  // name: betty
+  // name: sofia
+  // age: 25
+  // city: london
+  // active: true
+  
+  // 7. toString() - Convert to URL query string format
+  const queryString = searchParams.toString();
+  // Returns "name=betty&name=sofia&age=25&city=london&active=true"
+  
+  // Practical example: Building a filtered URL
+  const newQueryString = new URLSearchParams({
+    ...Object.fromEntries(searchParams.entries()),
+    page: '2',
+    sort: 'desc'
+  }).toString();
+  // Use with router.push(`/profile?${newQueryString}`);
 }
 ```
+
+Each method serves a specific purpose:
+- `get()`: Retrieves the first value of a parameter
+- `getAll()`: Retrieves all values for a parameter (useful for multiple values)
+- `keys()`: Returns an iterator of all parameter names
+- `values()`: Returns an iterator of all parameter values
+- `entries()`: Returns an iterator of all key-value pairs
+- `forEach()`: Executes a function for each parameter
+- `toString()`: Converts parameters to a URL-friendly query string
 
 #### Comparison of Navigation Hooks
 
