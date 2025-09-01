@@ -199,7 +199,7 @@ Example matches and params:
    - Progressive disclosure UI
    - Default landing pages with optional sub-routes
 
-<img src="/img/optional-catch-all-route.png">
+<img src="./img/optional-catch-all-route.png">
 
 ### 7. Navigation Hooks
 Next.js provides powerful navigation hooks for client-side navigation and routing. Here are the three main navigation hooks:
