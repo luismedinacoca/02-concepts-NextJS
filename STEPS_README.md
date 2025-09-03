@@ -341,6 +341,29 @@ Each method serves a specific purpose:
 - Missing or misconfigured `not-found.tsx` can result in default, unstyled errors.
 - If placed incorrectly, may not catch all 404s as intended.
 
+#### Code:
+```tsx
+// ./src/app/not-found.tsx
+"use client";
+import { useRouter } from "next/navigation";
+
+function NotFoundPage() {
+  const router = useRouter();
+  return (
+    <div>
+      <h1>The page you are looking for was not found!</h1>
+      <button onClick={() => router.push('/')} className="bg-green-500 border-0 border-white p-5 text-white">go to Homepage</button>
+    </div>
+  )
+}
+
+export default NotFoundPage;
+```
+#### Test:
+- URL: `http://localhost:3000/medicis`
+- Response: `The page you are looking for was not found!`
+- Button: `go to Homepage` visible
+
 ---
 
 ### 2. Loading Example Files
@@ -371,6 +394,49 @@ Each method serves a specific purpose:
 - Loading UI is only shown if the page or data is slow to resolve.
 - Best practice: keep loading UI simple and informative.
 
+
+#### Structure:
+```
+02-concepts
+└── src
+    └── app
+        └── loading-example
+            ├── loading.tsx    
+            └── page.tsx    
+```
+
+#### Code:
+```tsx
+// loading-example.tsx
+export default function LoadingExampleLoader(){
+  return (
+    <div className="p-8">
+      <div>Loading...</div>
+    </div>
+  )
+}
+
+
+// page.tsx
+async function getData(){
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  return {
+    stats: {
+      users: 10000
+    }
+  }
+}
+export default async function LoadingExamplePage() {
+  const data = await getData();
+  return(
+    <div className="p-4">
+      <h1>Loading example</h1>
+      <p className="font-bold text-sm">Users: {data.stats.users}</p>
+
+    </div>
+  )
+}
+```
 ---
 
 ### Next.js Features Related to These Files
@@ -389,6 +455,9 @@ Each method serves a specific purpose:
 - Proper use improves navigation, branding, and perceived performance.
 - Risks are mostly related to poor UX, missing files, or misconfiguration.
 - Next.js's app directory and conventions make these features easy to implement and customize.
+
+
+
 
 
 ## Suggested Next Steps
