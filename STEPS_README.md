@@ -456,9 +456,66 @@ export default async function LoadingExamplePage() {
 - Risks are mostly related to poor UX, missing files, or misconfiguration.
 - Next.js's app directory and conventions make these features easy to implement and customize.
 
+### 8. Route Groups in Next.js
 
+## Objective
+Route Groups in Next.js allow you to organize routes without affecting the URL path structure. They are particularly useful for:
+- Organizing routes into logical groups
+- Creating multiple root layouts for different sections of your application
+- Organizing routes by feature, team, or other custom groupings
 
+## Use Cases
+1. **Shared Layouts**: Create a common layout for a group of related routes (e.g., marketing pages)
+2. **Code Organization**: Group related routes together without affecting the URL structure
+3. **Team-based Organization**: Separate routes based on team ownership or responsibility
 
+## Implementation
+Route Groups are created by wrapping a folder name in parentheses. For example:
+```
+src/app/(marketing)/
+  ├── about/
+  │   └── page.tsx
+  ├── contact/
+  │   └── page.tsx
+  └── layout.tsx
+```
+
+## How to Access in Browser
+- About page: `http://localhost:3000/about`
+- Contact page: `http://localhost:3000/contact`
+
+Note: The folder name in parentheses `(marketing)` is not included in the URL path.
+
+## What NOT to Look for in Browser
+- Do NOT try to access `/marketing/about` or `/marketing/contact`
+- The route group name `(marketing)` is purely organizational and does not appear in the URL
+
+## Dependencies
+1. **Next.js**: Version 13.0 or higher
+2. Required files:
+   - Layout file (`layout.tsx`) for shared components
+   - Page files (`page.tsx`) for each route
+
+## Benefits and Risks
+
+### Benefits
+1. **Better Code Organization**: Group related routes logically
+2. **Shared Layouts**: Create specific layouts for groups of pages
+3. **Clean URLs**: URL structure remains clean and user-friendly
+4. **Team Collaboration**: Easier to manage code when multiple teams work on different sections
+
+### Risks
+1. **Naming Conflicts**: Ensure unique route names across different groups
+2. **Complexity**: Over-organization can lead to unnecessary complexity
+3. **Maintenance**: Need to maintain consistency in layout structure
+4. **Navigation**: Must ensure correct routing between grouped pages
+
+## Best Practices
+1. Use meaningful group names that reflect the purpose of the routes
+2. Keep the folder structure shallow and manageable
+3. Document the route group structure for team reference
+4. Use shared layouts effectively for consistent UI
+5. Avoid deeply nested route groups
 
 ## Suggested Next Steps
 

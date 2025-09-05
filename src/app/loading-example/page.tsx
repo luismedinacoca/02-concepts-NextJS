@@ -14,7 +14,6 @@ export default async function LoadingExamplePage() {
     <div className="p-4">
       <h1>Loading example</h1>
       <p className="font-bold text-sm">Users: {data.stats.users}</p>
-
     </div>
   )
 }
